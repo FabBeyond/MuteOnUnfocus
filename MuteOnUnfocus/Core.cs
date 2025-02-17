@@ -1,4 +1,5 @@
 ﻿using MelonLoader;
+using System.Linq.Expressions;
 using UnityEngine;
 
 [assembly: MelonInfo(typeof(MuteOnUnfocus.Core), "MuteOnUnfocus", "1.0.0", "fabbeyond", null)]
@@ -18,7 +19,7 @@ namespace MuteOnUnfocus
 
         public override void OnUpdate()
         {
-            if (audioListeners != null)
+            try
             {
                 if (Application.isFocused)
                 {
@@ -34,6 +35,10 @@ namespace MuteOnUnfocus
                         audioListener.GetComponent<AudioSource>().mute = true;
                     }
                 }
+            }
+            catch (Exception e)
+            {
+
             }
 
             base.OnUpdate();
