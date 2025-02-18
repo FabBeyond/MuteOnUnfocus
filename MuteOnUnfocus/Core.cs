@@ -9,30 +9,30 @@ namespace MuteOnUnfocus
 {
     public class Core : MelonMod
     {
-        AudioSource[] audioListeners;
-        public override void OnSceneWasInitialized(int buildIndex, string sceneName)
-        {
-            audioListeners = GameObject.FindObjectsOfType<AudioSource>();
-
-            base.OnSceneWasInitialized(buildIndex, sceneName);
-        }
-
         public override void OnUpdate()
         {
+            AudioSource[] audioListeners = GameObject.FindObjectsOfType<AudioSource>();
+
             try
             {
                 if (Application.isFocused)
                 {
                     foreach (AudioSource audioListener in audioListeners)
                     {
-                        audioListener.GetComponent<AudioSource>().mute = false;
+                        if (audioListener)
+                        {
+                            audioListener.GetComponent<AudioSource>().mute = false;
+                        }
                     }
                 }
                 else
                 {
                     foreach (AudioSource audioListener in audioListeners)
                     {
-                        audioListener.GetComponent<AudioSource>().mute = true;
+                        if (audioListener)
+                        {
+                            audioListener.GetComponent<AudioSource>().mute = true;
+                        }
                     }
                 }
             }
